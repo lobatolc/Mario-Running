@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oxanium', cursive;
+}
+
+body{
+    background-color: black;
+}
+
+
+.game-board{
+    width: 80%;
+    top: 100px;
+    height: 500px;
+    border-bottom: 15px solid rgb(35, 160, 35);
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#87CEEB, #E0F6FF);
+
+}
+
+.score{
+    background: rgb(133, 105, 27);
+    border: 10px solid rgb(234, 238, 20);
+    box-shadow: -3px 4px 0 rgb(87, 52, 7);
+    width: fit-content;
+    min-width: 15rem;
+    padding: 2rem;
+    font-size: 2rem;
+    top: 20px;
+    left: 20px;
+    border-radius: 0.5rem;
+    position: absolute;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+   
+}
+
+.button{
+    
+    position: absolute;
+    padding: 0.75rem;
+    border: 2px solid #000;
+    border-radius: 0.2rem;
+    font-size: clamp(5px, 10vw, 1.5rem);
+    font-weight: 600;
+    color: white;
+    background-color: rgb(133, 105, 27);
+    border: 5px solid rgb(234, 238, 20);
+    box-shadow: -3px 3px 0 rgb(87, 52, 7);
+    
+    top: 20px;
+    z-index: 999;
+}
+
+.buttonMusic{
+    right: 170px;
+    text-decoration: line-through;
+}
+
+.buttonReload{
+    right: 20px;
+}
+
+.button:active{
+    background-color: rgb(119, 92, 18);
+    box-shadow: inset -4px 4px 0 #222;
+    font-size: clamp(5px, 8vw, 1.5rem);
+}
+
+.pipe{
+    position: absolute;
+    bottom: 0;
+    width: 80px;
+    animation: pipe-animation 2.5s infinite linear;
+}
+
+.mario{
+    width: 150px;
+    position: absolute;
+    bottom: 0;
+    
+}
+
+.jump{
+    animation: jump 500ms ease-out;
+}
+
+.clouds{
+    position: absolute;
+    width: 400px;
+    animation: clouds-animation 20s infinite linear;
+    top: 20px;
+}
+
+@keyframes pipe-animation {
+    from {
+        right: -80px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
+
+@keyframes jump {
+    0% {
+        bottom: 0;
+    }
+
+    40%{
+        bottom: 180px;
+    }
+
+    50% {
+        bottom: 180px;
+    }
+
+    60%{
+        bottom: 180px;
+    }
+
+    100%{
+        bottom: 0;
+    }
+}
+
+@keyframes clouds-animation {
+    from {
+        right: -400px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
