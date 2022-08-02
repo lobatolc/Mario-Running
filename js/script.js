@@ -6,10 +6,17 @@ const buttonRestart = document.querySelector('.buttonReload');
 const buttonMusic = document.querySelector('.buttonMusic')
 const music = document.querySelector('.soundTrack');
 const soundButton = document.querySelector('.soundButton');
+const gameRecord = document.querySelector('.game-record')
 let auxScore = 0;
 let speed;
 let sound = false;
+let recordColor = false;
 buttonMusic.style.textDecoration = 'line-through';
+
+if(localStorage.getItem("record") == undefined || localStorage.getItem("record") == null){
+    localStorage.setItem("record", "0");
+}
+
 
 const jump = () =>{
     mario.classList.add('jump');
@@ -17,6 +24,14 @@ const jump = () =>{
     setTimeout(() =>{
         mario.classList.remove('jump');
     }, 500);
+}
+
+function stopSound(){
+    if(sound){
+        music.src = "./audio/game-over.mp3";
+        music.loop = false;
+        music.play();
+    }
 }
 
 const loop = setInterval(()=>{
@@ -27,12 +42,11 @@ const loop = setInterval(()=>{
     
 
     if(pipePosition <= 120 && pipePosition > 0 && marioPosition < 111){
-        sound = false;
+   
         music.pause();
-        music.src = "./audio/game-over.mp3";
-        music.loop = false;
-        music.play();
-        buttonMusic.style.textDecoration = 'line-through';
+
+        stopSound();
+        
         pipe.style.animation = 'none';
         pipe.style.left = `${pipePosition}px`;
 
@@ -45,10 +59,37 @@ const loop = setInterval(()=>{
         mario.src = './images/game-over.png';
         mario.style.width = '75px';
         mario.style.marginLeft = '50px';
+        
+        gameRecord.style.display = "none";
         clearAll();
+        
+        showRecord();
+        
         
     }
 }, 10)
+
+function showRecord(){
+    const record = setInterval(()=>{
+        const oldRecord = localStorage.getItem("record");
+        if(auxScore >= oldRecord){
+            gameRecord.style.display = "block";
+            
+            gameRecord.innerHTML = "New record: "+auxScore;
+            localStorage.setItem("record", auxScore);
+            if(!recordColor){
+                
+                gameRecord.style.color = "red";
+                recordColor = true;
+            }else{
+                
+                gameRecord.style.color = "yellow";
+                recordColor = false;
+            }
+        }
+           
+    }, 100)
+}
 
 const timer = setInterval(()=>{
     auxScore = auxScore+1;
@@ -60,6 +101,9 @@ const timer = setInterval(()=>{
     
     score.innerHTML = `Score: ${auxScore}`
 }, 100)
+
+
+
 
 
 document.addEventListener('keydown', jump);
@@ -92,8 +136,10 @@ buttonMusic.addEventListener('click', ()=>{
 })
 
 function clearAll(){
+    
     clearInterval(loop);
     clearInterval(timer);
+    
 }
 
 
